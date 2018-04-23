@@ -10,32 +10,25 @@ import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
 
 const MainApp = TabNavigator({
   Foodlist: {
-    screen: Foodlist
+    screen: Foodlist,
+    navigationOptions:{
+      tabBarLabel: 'Food',
+      tabBarIcon:<Icon ios='ios-thumbs-up' width={50} height={50} active /> 
+    }
   },
   UserProfile: {
-    screen: UserProfile
+    screen: UserProfile,
+    navigationOptions: {
+      tabBarLabel: 'Profile',
+      tabBarIcon: <Icon ios='ios-thumbs-down' width={50} height={50} />
+    }
   }
 },{
-  navigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ focused, tintColor }) => {
-      const { routeName } = navigation.state;
-      let iconName;
-      if (routeName === 'Foodlist') {
-        iconName = 'ios-restaurant';
-      } else if (routeName === 'Settings') {
-        iconName = `ios-options${focused ? '' : '-outline'}`;
-      }
-
-      // You can return any component that you like here! We usually use an
-      // icon component from react-native-vector-icons
-      return <Icon ios='ios-thumbs-up' active />;
-    },
-  }),
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
-  showLabel: true
+  showIcon: true
 })
 
 export default StackNavigator({
