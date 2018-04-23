@@ -41,7 +41,7 @@ export default class Home extends React.Component{
             <Container style={style.container}>
                 <Content >
                     <Row size={70} style={style.logoContainer}>
-                        <Image source={require('./logo.png')} />
+                        <Image source={require('../../assets/logo.png')} />
                     </Row>
                     <Row size={15} style={{paddingBottom:20}}>
                         <Col>

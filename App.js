@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Home from './components/home/Home'
 import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
+import Foodlist from './components/foodlist/Foodlist'
 import { StackNavigator } from 'react-navigation'
 
 export default StackNavigator({
@@ -14,7 +15,11 @@ export default StackNavigator({
   },
   Signup: {
     screen: Signup
+  },
+  Foodlist: {
+    screen: Foodlist
   }
+
 })
 
 const styles = StyleSheet.create({
