@@ -1,34 +1,62 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Icon } from 'native-base'
+import { StyleSheet } from 'react-native';
+import { Icon, Footer, FooterTab, Button, Text  } from 'native-base'
 import Home from './components/home/Home'
 import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
 import Foodlist from './components/foodlist/Foodlist'
 import UserProfile from './components/userprofile/UserProfile'
+import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
+
+const UserAccountNav = StackNavigator({
+  UserProfile:{
+    screen: UserProfile
+  },
+  CreditCardInfo:{
+    screen: CreditCardInfo
+  }
+},{
+  headerMode:'none'
+})
+
+
 
 const MainApp = TabNavigator({
   Foodlist: {
-    screen: Foodlist,
-    navigationOptions:{
-      tabBarLabel: 'Food',
-      tabBarIcon:<Icon ios='ios-thumbs-up' width={50} height={50} active /> 
-    }
+    screen: Foodlist
   },
-  UserProfile: {
-    screen: UserProfile,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: <Icon ios='ios-thumbs-down' width={50} height={50} />
-    }
+  UserNav: {
+    screen: UserAccountNav
   }
 },{
-  tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
-  showIcon: true
+  lazy: true,
+  showIcon: true,
+  tabBarComponent: props => {
+    return (
+        <Footer>
+            <FooterTab>
+                <Button
+                    vertical
+                    active={props.navigationState.index === 0}
+                    onPress={() => props.navigation.navigate("Foodlist")}>
+                    <Icon name="restaurant" />
+                    <Text>Eats</Text>
+                </Button>
+                <Button
+                    vertical
+                    active={props.navigationState.index === 1}
+                    onPress={() => props.navigation.navigate("UserNav")}>
+                    <Icon name="person" />
+                    <Text>My Account</Text>
+                </Button>
+            </FooterTab>
+        </Footer>
+    );
+}
 })
 
 export default StackNavigator({

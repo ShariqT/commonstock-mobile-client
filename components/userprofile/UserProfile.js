@@ -1,12 +1,29 @@
 import React from 'react'
-import { Container, Content, Text } from 'native-base'
+import { Container, Content, Text, Button, Item } from 'native-base'
+import { Image } from 'react-native'
+import { Row, Col } from 'react-native-easy-grid'
 
 export default class UserProfile extends React.Component{
+    goToCreditCardScreen(){
+        this.props.navigation.navigate('CreditCardInfo')
+    }
     render(){
         return(
-            <Container>
+            <Container style={{backgroundColor: '#ff9d1c', padding:20}}>
                 <Content>
-                    <Text>User Profile</Text>
+                    <Row style={{justifyContent:'center'}}>
+                        <Text style={{color:'white'}}>Username</Text>
+                    </Row>
+                    <Row style={{justifyContent:'center'}}>
+                        <Image source={require('../../assets/logo.png')} style={{width:200, height:200, borderRadius:50, borderColor:'white', borderWidth:10}}/>
+                    </Row>
+                    <Row style={{paddingTop:20}}>
+                        <Col>
+                        <Button block style={{backgroundColor: '#795546'}} onPress={this.goToCreditCardScreen.bind(this)}>
+                            <Text style={{color:'white'}}>Update Credit Card Info</Text>
+                        </Button>
+                        </Col>
+                    </Row>
                 </Content>
             </Container>
         )
