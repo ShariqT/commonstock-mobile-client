@@ -2,36 +2,8 @@ import React from 'react'
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Container, Content, Form, Item, Input, Button} from 'native-base'
 import { Col, Row, Grid} from 'react-native-easy-grid'
-
-const style = StyleSheet.create({
-    container: {
-        padding:20,
-        backgroundColor: '#ff9d1c'
-    },
-    logoContainer:{
-        flex:1,
-        justifyContent: 'center'
-    },
-    loginContainer:{
-        flex:.3,
-        flexDirection:'row'
-    },
-    buttonStyle: {
-        backgroundColor: '#795546',
-        alignItems:'stretch',
-        justifyContent:'center'
-    },
-
-    InputStyle: {
-        color:'black',
-        backgroundColor:'white',
-        borderColor: 'white',
-        height:30,
-        width:200,
-        justifyContent:'center',
-        borderRadius: 5
-    }
-})
+import { primaryColor, paddedContainer, inputField, secondaryColor } from '../../styles/Styles';
+import NavHeader from '../navheader/NavHeader';
 
 export default class Login extends React.Component{
     constructor(props){
@@ -41,7 +13,8 @@ export default class Login extends React.Component{
     }
 
     static navigationOptions = {
-        title: 'Login'
+        title: 'Login',
+        header: null
     }
     submitLogin(){
 
@@ -49,16 +22,17 @@ export default class Login extends React.Component{
 
     render(){
         return(
-            <Container style={style.container}>
+            <Container style={{backgroundColor: primaryColor}}>
+                <NavHeader title="Login" backPage='Home' hideCart />
                 <Content>
-                    <Item underline style={{backgroundColor:'white', paddingLeft:20}}>
+                    <Item underline style={inputField}>
                         <Input placeholder="Username" value={this.username} />
                     </Item>
-                    <Item underline style={{backgroundColor:'white', paddingLeft:20}}>
+                    <Item underline style={inputField}>
                         <Input placeholder="Password" secureTextEntry={true} value={this.password} />
                     </Item>           
-                    <Button block style={{marginTop:20, backgroundColor:'#795546'}}>
-                        <Text style={{color:'white'}}>Login</Text>
+                    <Button full style={{backgroundColor: secondaryColor}}>
+                        <Text style={{color:'white'}}>Login To Your Account</Text>
                     </Button>
                 </Content>
             </Container>

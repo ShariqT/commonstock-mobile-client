@@ -1,6 +1,8 @@
 import React from 'react'
-import { Header, Left, Right, Body, Button, Text, Icon, Badge } from 'native-base'
+import { Header, Left, Right, Body, Title, Button, Text, Icon, Badge } from 'native-base'
 import { withNavigation } from 'react-navigation'
+import ShoppingCart from '../shoppingcart/ShoppingCart';
+import {teritaryColor, secondaryColor, primaryTextColor } from '../../styles/Styles';
 class NavHeader extends React.Component{
     constructor(props){
         super(props);
@@ -15,24 +17,23 @@ class NavHeader extends React.Component{
     render(){
         let headerChildren = null;
         if (this.backPage !== undefined){
-            headerChildren = <Button transparent onPress={this.goBack.bind(this)}>
-            <Text>Back</Text>
-        </Button>
+            headerChildren = <Left><Button transparent onPress={this.goBack.bind(this)}>
+            <Icon name="arrow-back" style={{color:primaryTextColor}} />
+        </Button></Left>
+        }
+        let cartElem = null;
+        if (!this.props.hideCart){
+            cartElem = <ShoppingCart />
+        }else{
+            cartElem = <Right></Right>
         }
         return(
-            <Header>
-                <Left>
+            <Header style={{backgroundColor: teritaryColor}}>
                     {headerChildren}
-                </Left>
                 <Body>
-                    <Text>{this.title}</Text>
+                    <Title style={{color:primaryTextColor}}>{this.title}</Title>
                 </Body>
-                <Right>
-                    <Badge>
-                        <Text>2</Text>
-                    </Badge>
-                    <Icon name="basket" />
-                </Right>
+                {cartElem}
             </Header>
         )
     }

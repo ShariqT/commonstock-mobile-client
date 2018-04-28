@@ -8,6 +8,7 @@ import Foodlist from './components/foodlist/Foodlist'
 import UserProfile from './components/userprofile/UserProfile'
 import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
+import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles';
 
 const UserAccountNav = StackNavigator({
   UserProfile:{
@@ -35,23 +36,28 @@ const MainApp = TabNavigator({
   swipeEnabled: false,
   lazy: true,
   showIcon: true,
+  tabBarOptions:{
+    activeBackgroundColor: teritaryColor,
+    activeTintColor: teritaryColor
+  },
   tabBarComponent: props => {
     return (
-        <Footer>
+        <Footer style={{backgroundColor: secondaryColor}}>
             <FooterTab>
                 <Button
                     vertical
                     active={props.navigationState.index === 0}
-                    onPress={() => props.navigation.navigate("Foodlist")}>
-                    <Icon name="restaurant" />
-                    <Text>Eats</Text>
+                    onPress={() => props.navigation.navigate("Foodlist")}
+                    activeBackgroundColor={teritaryColor}>
+                    <Icon name="restaurant" style={{color: primaryTextColor}} />
+                    <Text style={{color: primaryTextColor}}>Eats</Text>
                 </Button>
                 <Button
                     vertical
                     active={props.navigationState.index === 1}
                     onPress={() => props.navigation.navigate("UserNav")}>
-                    <Icon name="person" />
-                    <Text>My Account</Text>
+                    <Icon name="person" style={{color: primaryTextColor}} />
+                    <Text style={{color: primaryTextColor}}>My Account</Text>
                 </Button>
             </FooterTab>
         </Footer>

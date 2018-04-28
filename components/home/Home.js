@@ -2,33 +2,13 @@ import React from 'react'
 import { View, Image, StyleSheet} from 'react-native'
 import { Container, Content, Button, Text } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-const style = StyleSheet.create({
-    container: {
-        backgroundColor: '#ff9d1c',
-        padding:10
-    },
-    logoContainer:{
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        padding: 150
-    },
-    loginContainer:{
-        flex:.3,
-        flexDirection:'row'
-    },
-    buttonStyle: {
-        backgroundColor: '#795546'
-    },
+import { mainButtonStyle, primaryColor, paddedContainer, logoContainer } from '../../styles/Styles'
 
-    buttonStyleText: {
-        color:'white'
-    }
-})
 export default class Home extends React.Component{
     static navigationOptions = {
         header: null
     }
-    
+
     navigateScreen(screen){
         switch(screen){
             case 'login':
@@ -42,15 +22,15 @@ export default class Home extends React.Component{
     render(){
         
         return(
-            <Container style={style.container}>
+            <Container style={paddedContainer}>
                 <Content >
-                    <Row size={70} style={style.logoContainer}>
+                    <Row size={70} style={logoContainer}>
                         <Image source={require('../../assets/logo.png')} />
                     </Row>
                     <Row size={15} style={{paddingBottom:20}}>
                         <Col>
-                        <Button block style={style.buttonStyle} onPress={this.navigateScreen.bind(this, 'login')}>
-                            <Text> Login </Text>
+                        <Button block style={mainButtonStyle} onPress={this.navigateScreen.bind(this, 'login')}>
+                            <Text color={primaryColor}> Login </Text>
                         </Button>
                         
                         </Col>
@@ -58,8 +38,8 @@ export default class Home extends React.Component{
                     </Row>
                     <Row size={15}>
                     <Col>
-                        <Button block style={style.buttonStyle} onPress={this.navigateScreen.bind(this, 'signup')}>
-                            <Text>Sign Up</Text>
+                        <Button block style={mainButtonStyle} onPress={this.navigateScreen.bind(this, 'signup')}>
+                            <Text color={primaryColor}>Sign Up</Text>
                         </Button>
                         </Col>
                     </Row>
