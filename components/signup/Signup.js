@@ -2,6 +2,9 @@ import React from 'react'
 import { Container, Content, Button, Item, Input, Text } from 'native-base'
 
 export default class Signup extends React.Component {
+    static navigationOptions = {
+        title: 'Sign Up'
+    }
     processSignup(){
         this.props.navigation.navigate('Foodlist')
     }

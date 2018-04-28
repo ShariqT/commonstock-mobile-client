@@ -25,6 +25,10 @@ const style = StyleSheet.create({
     }
 })
 export default class Home extends React.Component{
+    static navigationOptions = {
+        header: null
+    }
+    
     navigateScreen(screen){
         switch(screen){
             case 'login':

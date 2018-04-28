@@ -39,6 +39,10 @@ export default class Login extends React.Component{
         this.username = ''
         this.password = ''
     }
+
+    static navigationOptions = {
+        title: 'Login'
+    }
     submitLogin(){
 
     }
