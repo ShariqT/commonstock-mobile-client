@@ -26,13 +26,13 @@ const UserAccountNav = StackNavigator({
 
 
 const MainApp = TabNavigator({
-  Foodlist: {
-    screen: Foodlist
-  },
-  UserNav: {
-    screen: UserAccountNav
-  }
-},{
+    Foodlist: {
+      screen: Foodlist
+    },
+    UserNav: {
+      screen: UserAccountNav
+    }
+  },{
   tabBarPosition: 'bottom',
   animationEnabled: false,
   swipeEnabled: false,
@@ -64,7 +64,7 @@ const MainApp = TabNavigator({
 }
 })
 
-export default StackNavigator({
+const EntryNav = StackNavigator({
   Home: {
     screen: Home
   },
@@ -78,8 +78,17 @@ export default StackNavigator({
     screen: MainApp
   }
 
+},{
+  initialRouteName: 'Home'
 })
 
+
+export default StackNavigator({
+  
+},{
+  mode: 'modal',
+  headerMode: 'none'
+})
 
 
 const styles = StyleSheet.create({
