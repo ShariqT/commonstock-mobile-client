@@ -1,8 +1,11 @@
 import React from 'react'
 import { Container, Content, Text, Item, Input, Button, Picker } from 'native-base'
+import NavHeader from '../navheader/NavHeader';
 
 export default class CreditCardInfo extends React.Component{
-
+    static navigationOptions = {
+        header: null
+    }
     constructor(props){
         super(props)
         this.validYears = [];
@@ -20,7 +23,8 @@ export default class CreditCardInfo extends React.Component{
             return(<Picker.Item label={year} value={year} />)
         }) 
         return(
-            <Container style={{backgroundColor: '#ff9d1c', padding:20}}>
+            <Container style={{backgroundColor: '#ff9d1c'}}>
+                <NavHeader title="Update Payment" backPage="UserProfile" hideCart />
                 <Content>
                     <Item underline style={{backgroundColor:'white', paddingLeft:20}}>
                         <Input placeholder="Name of Credit Card" />
@@ -60,7 +64,7 @@ export default class CreditCardInfo extends React.Component{
                             {pickerChildren}
                         </Picker>
                     </Item>
-                    <Button block style={{marginTop:20, backgroundColor:'#795546'}} onPress={this.updateCreditInfo.bind(this)}>
+                    <Button full style={{ backgroundColor:'#795546'}} onPress={this.updateCreditInfo.bind(this)}>
                         <Text>UPDATE PAYMENT INFO</Text>
                     </Button>
                 </Content>

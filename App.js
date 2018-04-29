@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Icon, Footer, FooterTab, Button, Text  } from 'native-base'
+import { Icon, Footer, FooterTab, Button, Text, StyleProvider  } from 'native-base'
 import Home from './components/home/Home'
 import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
@@ -9,6 +9,8 @@ import UserProfile from './components/userprofile/UserProfile'
 import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
 import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles';
+import getTheme from './native-base-theme/components'
+import platformTheme from './native-base-theme/variables/platform'
 
 const UserAccountNav = StackNavigator({
   UserProfile:{
@@ -36,19 +38,15 @@ const MainApp = TabNavigator({
   swipeEnabled: false,
   lazy: true,
   showIcon: true,
-  tabBarOptions:{
-    activeBackgroundColor: teritaryColor,
-    activeTintColor: teritaryColor
-  },
   tabBarComponent: props => {
     return (
+      <StyleProvider style={getTheme(platformTheme)}>
         <Footer style={{backgroundColor: secondaryColor}}>
-            <FooterTab>
+            <FooterTab >
                 <Button
                     vertical
                     active={props.navigationState.index === 0}
-                    onPress={() => props.navigation.navigate("Foodlist")}
-                    activeBackgroundColor={teritaryColor}>
+                    onPress={() => props.navigation.navigate("Foodlist")}>
                     <Icon name="restaurant" style={{color: primaryTextColor}} />
                     <Text style={{color: primaryTextColor}}>Eats</Text>
                 </Button>
@@ -61,6 +59,7 @@ const MainApp = TabNavigator({
                 </Button>
             </FooterTab>
         </Footer>
+        </StyleProvider>
     );
 }
 })

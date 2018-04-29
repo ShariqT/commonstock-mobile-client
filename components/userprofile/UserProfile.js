@@ -2,14 +2,19 @@ import React from 'react'
 import { Container, Content, Text, Button, Item } from 'native-base'
 import { Image } from 'react-native'
 import { Row, Col } from 'react-native-easy-grid'
+import NavHeader from '../navheader/NavHeader';
 
 export default class UserProfile extends React.Component{
+    static navigationOptions ={
+        header: null
+    }
     goToCreditCardScreen(){
         this.props.navigation.navigate('CreditCardInfo')
     }
     render(){
         return(
-            <Container style={{backgroundColor: '#ff9d1c', padding:20}}>
+            <Container style={{backgroundColor: '#ff9d1c'}}>
+                <NavHeader backPage="Foodlist" title="Profile" hideCart />
                 <Content>
                     <Row style={{justifyContent:'center'}}>
                         <Text style={{color:'white'}}>Username</Text>
@@ -19,7 +24,7 @@ export default class UserProfile extends React.Component{
                     </Row>
                     <Row style={{paddingTop:20}}>
                         <Col>
-                        <Button block style={{backgroundColor: '#795546'}} onPress={this.goToCreditCardScreen.bind(this)}>
+                        <Button full style={{backgroundColor: '#795546'}} onPress={this.goToCreditCardScreen.bind(this)}>
                             <Text style={{color:'white'}}>Update Credit Card Info</Text>
                         </Button>
                         </Col>
