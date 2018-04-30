@@ -7,6 +7,9 @@ import Signup from './components/signup/Signup'
 import Foodlist from './components/foodlist/Foodlist'
 import UserProfile from './components/userprofile/UserProfile'
 import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
+import Checkout from './components/checkout/Checkout'
+import SellerProfile from './components/sellerprofile/SellerProfile'
+
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
 import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles';
 import getTheme from './native-base-theme/components'
@@ -84,18 +87,16 @@ const EntryNav = StackNavigator({
 
 
 export default StackNavigator({
-  
+  Entry:{
+    screen: EntryNav
+  },
+  Checkout: {
+    screen: Checkout,
+  },
+  SellerProfile: {
+    screen: SellerProfile
+  }
 },{
-  mode: 'modal',
-  headerMode: 'none'
+  mode: 'modal'
 })
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ff9d1c',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Right } from 'native-base'
 import { Image, StyleSheet } from 'react-native'
+import { withNavigation } from 'react-navigation'
 
-export default class Foodcard extends React.Component{
+const foodcardComp = class Foodcard extends React.Component{
     constructor(props){
         super(props);
         console.log("insdie of foodcard")
@@ -18,6 +19,9 @@ export default class Foodcard extends React.Component{
             break;
         }
     }
+    goToSellerProfile(name){
+        this.props.navigation.navigate('SellerProfile', {seller: name})
+    }
     render(){
         return(
             <Card>
@@ -26,7 +30,7 @@ export default class Foodcard extends React.Component{
                         <Text>{this.props.url}</Text>
                     </Left>
                     <Body>
-                        <Button transparent style={{width:300}}>
+                        <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, '@SellerUsername')}>
                             <Text>@SellerUsername</Text>
                         </Button>
                     </Body>
@@ -41,12 +45,9 @@ export default class Foodcard extends React.Component{
                             <Text>112 likes</Text>
                         </Button>
                     </Left>
-                    <Body>
-                        
-                    </Body>
                     <Right>
                         <Button transparent>
-                            <Text>Buy</Text>
+                            <Text>Add To Cart</Text>
                         </Button>
                     </Right>
                 </CardItem>
@@ -54,3 +55,5 @@ export default class Foodcard extends React.Component{
         )
     }
 }
+
+export default withNavigation(foodcardComp)

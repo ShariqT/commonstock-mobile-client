@@ -12,7 +12,11 @@ class NavHeader extends React.Component{
     }
 
     goBack(){
-        this.props.navigation.navigate(this.backPage);
+        if (this.backPage !== null){
+            this.props.navigation.navigate(this.backPage);
+        }else{
+            this.props.navigation.goBack()
+        }
     }
     render(){
         let headerChildren = null;
