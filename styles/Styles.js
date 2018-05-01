@@ -27,3 +27,8 @@ export let formItemStyle = {
     backgroundColor:'white', 
     paddingLeft:20
 }
+
+export let centerStyle = {
+    alignItems: 'center',
+    paddingBottom: 20
+}
