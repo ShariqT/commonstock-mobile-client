@@ -1,10 +1,11 @@
 import React from 'react'
-import { Container, Content, Button, Text, Thumbnail, Icon, List, ListItem, Left, Body, Right } from 'native-base'
+import { Container, Content, Button, Text, Grid, Row, Col, Thumbnail, Icon, List, ListItem, Left, Body, Right } from 'native-base'
 import NavHeader from '../navheader/NavHeader';
 import { FlatList} from 'react-native'
 import { primaryColor, secondaryColor, primaryTextColor } from '../../styles/Styles'
 import CheckoutItem from '../checkout-item-list/CheckoutItem'
 import { connect } from 'react-redux'
+import { removeCartItem } from '../../actions'
 
 const checkout = class Checkout extends React.Component{
     static navigationOptions = {
@@ -12,25 +13,28 @@ const checkout = class Checkout extends React.Component{
     }
     constructor(props){
         super(props)
-        this.total = this.props.cart.reduce((acc, val) => {
-            console.log(val.price) 
-            return acc + val.price 
-        }, 0)
+        
     }
+
 
     _renderItems = ({item}) => {
         console.log("insdie of the flatlist")
         console.log(item);
         return (
-           <CheckoutItem item={item} /> 
+           <CheckoutItem item={item} onDelete={()=> { this.props.onDeleteItem(item.key) }} /> 
         );
     }
     render(){
+        this.total = this.props.cart.reduce((acc, val) => {
+            console.log(val.price) 
+            return acc + val.price 
+        }, 0)
         return(
             <Container style={{ backgroundColor: primaryColor}}>
                 <NavHeader hideCart backPage='Foodlist' title="Checkout" />
-                <Content style={{ backgroundColor: primaryTextColor}}>
-                    
+                <Content style={{ backgroundColor: primaryTextColor, paddingBottom:150}}>
+                    <Row size={70}>
+                    <Col>
                     <FlatList data={this.props.cart} 
                     renderItem={this._renderItems}
                     style={{backgroundColor: primaryTextColor}}
@@ -43,9 +47,15 @@ const checkout = class Checkout extends React.Component{
                             <Text note>${this.total}</Text>
                         </Right>
                     </ListItem>
+                    </Col>
+                    </Row>
+                    <Row size={30}>
+                    <Col>
                     <Button full style={{backgroundColor: secondaryColor }}>
                         <Text>Buy</Text>
                     </Button>
+                    </Col>
+                    </Row>
                 </Content>
             </Container>   
         )
@@ -57,4 +67,12 @@ const mapStateToProps = function(state){
         cart: state.cart
     }
 }
-export default connect(mapStateToProps)(checkout)
+
+const mapPropsToDispatch = function(dispatch){
+    return ({
+        onDeleteItem: (key) =>{
+            return dispatch(removeCartItem(key))
+        }
+    })
+}
+export default connect(mapStateToProps, mapPropsToDispatch)(checkout)

@@ -11,11 +11,12 @@ import Checkout from './components/checkout/Checkout'
 import SellerProfile from './components/sellerprofile/SellerProfile'
 import { Provider } from 'react-redux'
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
-import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles';
+import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles'
 import getTheme from './native-base-theme/components'
 import platformTheme from './native-base-theme/variables/platform'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import RootReducer from './reducers/Root'
+import thunk from 'redux-thunk'
 const UserAccountNav = StackNavigator({
   UserProfile:{
     screen: UserProfile
@@ -114,7 +115,7 @@ const state = {
     }
   ]
 }
-const store = createStore(RootReducer, state )
+const store = createStore(RootReducer, state, applyMiddleware(thunk))
 console.log("the original state is --")
 console.log(store)
 export default class App extends React.Component{

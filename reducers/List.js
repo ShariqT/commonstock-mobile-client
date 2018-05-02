@@ -1,4 +1,12 @@
+import { LOAD_FOODLIST } from '../actions/index'
+
 initialState = []
 export function listReducer(state = initialState, action){
-    return state
+    switch(action.type){
+        case LOAD_FOODLIST:
+            return []
+        break;
+        default:
+            return state
+    }
 }

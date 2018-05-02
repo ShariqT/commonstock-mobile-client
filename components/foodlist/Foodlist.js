@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Right } from 'native-base'
 import { Image, StyleSheet } from 'react-native'
 import Foodcard from '../foodcard/Foodcard'
-import NavHeader from '../navheader/NavHeader'
+import Naimport { loadavg } from 'os';
+vHeader from '../navheader/NavHeader'
 import PropTypes from 'prop-types'
-import { addItemToCart } from '../../actions/index'
+import { addItemToCart, getFoodlist } from '../../actions/index'
 const foodlist = class Foodlist extends React.Component{
     
 
@@ -16,6 +17,10 @@ const foodlist = class Foodlist extends React.Component{
     constructor(props){
         super(props);
 
+    }
+
+    componentDidMount(){
+        this.props.load()
     }
 
     render(){
@@ -34,7 +39,8 @@ const foodlist = class Foodlist extends React.Component{
 
 foodlist.propTypes = {
     addCartAction: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    load: PropTypes.func
 }
 
 const mapDispatchToProps = function(dispatch){
@@ -42,7 +48,12 @@ const mapDispatchToProps = function(dispatch){
             addCartAction: (item) => {
                     console.log("inside of cart action")
                     dispatch(addItemToCart(item))
-                }
+                },
+            
+
+            load: ()=> {
+                dispatch(getFoodlist())
+            }
         })
 }
 
