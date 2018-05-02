@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Right } from 'native-base'
 import { Image, StyleSheet } from 'react-native'
 import Foodcard from '../foodcard/Foodcard'
-import Naimport { loadavg } from 'os';
-vHeader from '../navheader/NavHeader'
+import NavHeader from '../navheader/NavHeader'
 import PropTypes from 'prop-types'
 import { addItemToCart, getFoodlist } from '../../actions/index'
 const foodlist = class Foodlist extends React.Component{

@@ -24,19 +24,19 @@ export function removeCartItem(key){
 
 export function getFoodlist(){
     return(dispatch) => {
-        // let dat = [
-        //     {
-        //         'username': '@SellerUsername',
-        //         'key':1,
-        //         'url':'Nachos',
-        //         'num_of_likes':112,
-        //         'price':4.25,
-        //         'name': 'Nachos'
-        //     }
-        // ]
+        let dat = [
+            {
+                'username': '@SellerUsername',
+                'key':1,
+                'url':'Nachos',
+                'num_of_likes':112,
+                'price':4.25,
+                'name': 'Nachos'
+            }
+        ]
         return dispatch({
             type: LOAD_FOODLIST,
-            list: []
+            list: dat
         })
     }
 }

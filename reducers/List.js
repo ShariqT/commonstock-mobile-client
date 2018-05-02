@@ -4,7 +4,7 @@ initialState = []
 export function listReducer(state = initialState, action){
     switch(action.type){
         case LOAD_FOODLIST:
-            return []
+            return action.list
         break;
         default:
             return state
