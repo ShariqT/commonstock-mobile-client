@@ -3,12 +3,14 @@ import { Header, Left, Right, Body, Title, Button, Text, Icon, Badge } from 'nat
 import { withNavigation } from 'react-navigation'
 import ShoppingCart from '../shoppingcart/ShoppingCart';
 import {teritaryColor, secondaryColor, primaryTextColor } from '../../styles/Styles';
-class NavHeader extends React.Component{
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+const navheader  = class NavHeader extends React.Component{
     constructor(props){
         super(props);
         this.backPage = props.backPage;
         this.title = props.title;
-        console.log(this.backPage)
     }
 
     goBack(){
@@ -27,7 +29,7 @@ class NavHeader extends React.Component{
         }
         let cartElem = null;
         if (!this.props.hideCart){
-            cartElem = <ShoppingCart />
+            cartElem = <ShoppingCart cart={this.props.cart} />
         }else{
             cartElem = <Right></Right>
         }
@@ -42,5 +44,13 @@ class NavHeader extends React.Component{
         )
     }
 }
-
-export default withNavigation(NavHeader);
+navheader.propTypes = {
+    cart: PropTypes.array
+}
+const mapPropsToState = function(state){
+    return {
+        cart: state.cart
+    }
+}
+export default connect(mapPropsToState)(withNavigation(navheader))
+//export default withNavigation(navheaders);

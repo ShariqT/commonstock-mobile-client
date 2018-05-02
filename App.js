@@ -9,12 +9,13 @@ import UserProfile from './components/userprofile/UserProfile'
 import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import Checkout from './components/checkout/Checkout'
 import SellerProfile from './components/sellerprofile/SellerProfile'
-
+import { Provider } from 'react-redux'
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
 import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles';
 import getTheme from './native-base-theme/components'
 import platformTheme from './native-base-theme/variables/platform'
-
+import { createStore } from 'redux'
+import RootReducer from './reducers/Root'
 const UserAccountNav = StackNavigator({
   UserProfile:{
     screen: UserProfile
@@ -86,7 +87,7 @@ const EntryNav = StackNavigator({
 })
 
 
-export default StackNavigator({
+const RootStack = StackNavigator({
   Entry:{
     screen: EntryNav
   },
@@ -98,5 +99,30 @@ export default StackNavigator({
   }
 },{
   mode: 'modal'
-})
+});
 
+const state = {
+  cart: [],
+  foodlist: [
+    {
+        'username': '@SellerUsername',
+        'key':1,
+        'url':'Nachos',
+        'num_of_likes':112,
+        'price':4.25,
+        'name': 'Nachos'
+    }
+  ]
+}
+const store = createStore(RootReducer, state )
+console.log("the original state is --")
+console.log(store)
+export default class App extends React.Component{
+  render(){
+    return (
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
+    )
+  }
+}

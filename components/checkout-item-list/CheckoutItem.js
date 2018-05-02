@@ -8,7 +8,7 @@ const checkoutItemComp = class CheckoutItem extends React.Component{
     constructor(props){
         super(props)
 
-        switch(props.item.pic){
+        switch(props.item.url){
             case "Nachos": 
                 this.pic = require("../../assets/Nachos.jpg")
             break;
@@ -20,7 +20,7 @@ const checkoutItemComp = class CheckoutItem extends React.Component{
     }
 
     goToSellerPage(){
-        this.props.navigation.navigate('SellerProfile', {seller: this.item.seller})
+        this.props.navigation.navigate('SellerProfile', {seller: this.item.username})
     }
     render(){
         return(
@@ -31,7 +31,7 @@ const checkoutItemComp = class CheckoutItem extends React.Component{
                 <Body>
                     <Text>{this.item.name}</Text>
                     <Button transparent onPress={this.goToSellerPage.bind(this)}>
-                        <Text>{this.item.seller}</Text>
+                        <Text>{this.item.username}</Text>
                     </Button>
                 </Body>
                 <Right>

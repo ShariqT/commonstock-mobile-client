@@ -1,13 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Right } from 'native-base'
 import { Image, StyleSheet } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import PropTypes from 'prop-types'
 
 const foodcardComp = class Foodcard extends React.Component{
     constructor(props){
         super(props);
         console.log("insdie of foodcard")
-        switch(props.url){
+        switch(props.item.url){
             case 'Nachos':
                 this.data = require('../../assets/Nachos.jpg')
             break;
@@ -22,15 +24,16 @@ const foodcardComp = class Foodcard extends React.Component{
     goToSellerProfile(name){
         this.props.navigation.navigate('SellerProfile', {seller: name})
     }
+
     render(){
         return(
             <Card>
                 <CardItem>
                     <Left>
-                        <Text>{this.props.url}</Text>
+                        <Text>{this.props.item.url}</Text>
                     </Left>
                     <Body>
-                        <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, '@SellerUsername')}>
+                        <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, this.props.item.username)}>
                             <Text>@SellerUsername</Text>
                         </Button>
                     </Body>
@@ -46,7 +49,7 @@ const foodcardComp = class Foodcard extends React.Component{
                         </Button>
                     </Left>
                     <Right>
-                        <Button transparent>
+                        <Button transparent onPress={this.props.onAddCart}>
                             <Text>Add To Cart</Text>
                         </Button>
                     </Right>
@@ -56,4 +59,9 @@ const foodcardComp = class Foodcard extends React.Component{
     }
 }
 
-export default withNavigation(foodcardComp)
+foodcardComp.propTypes = {
+    item: PropTypes.object,
+    onAddCart: PropTypes.func.isRequired
+}
+
+export default connect()(withNavigation(foodcardComp))

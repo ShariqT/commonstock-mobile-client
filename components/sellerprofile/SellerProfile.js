@@ -54,6 +54,9 @@ export default class SellerProfile extends React.Component{
                                 <Text>{this.sellerInfo.join_date}</Text>
                             </Col>
                         </Row>
+                        <Row>
+                            
+                        </Row>
                     </Grid>
                     
                 </Content>

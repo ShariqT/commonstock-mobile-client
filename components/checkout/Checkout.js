@@ -4,18 +4,15 @@ import NavHeader from '../navheader/NavHeader';
 import { FlatList} from 'react-native'
 import { primaryColor, secondaryColor, primaryTextColor } from '../../styles/Styles'
 import CheckoutItem from '../checkout-item-list/CheckoutItem'
+import { connect } from 'react-redux'
 
-export default class Checkout extends React.Component{
+const checkout = class Checkout extends React.Component{
     static navigationOptions = {
         header: null
     }
     constructor(props){
         super(props)
-        this.checkoutItems = [
-            {"name": "Nachos", "pic": "Nachos", "seller":"@SellerUsername", "price": 2.34},
-            {"name": "Burrito", "pic":"Burrito", "seller": "@SellerUsername", "price": 5.00},
-        ]
-        this.total = this.checkoutItems.reduce((acc, val) => {
+        this.total = this.props.cart.reduce((acc, val) => {
             console.log(val.price) 
             return acc + val.price 
         }, 0)
@@ -34,7 +31,7 @@ export default class Checkout extends React.Component{
                 <NavHeader hideCart backPage='Foodlist' title="Checkout" />
                 <Content style={{ backgroundColor: primaryTextColor}}>
                     
-                    <FlatList data={this.checkoutItems} 
+                    <FlatList data={this.props.cart} 
                     renderItem={this._renderItems}
                     style={{backgroundColor: primaryTextColor}}
                     />
@@ -54,3 +51,10 @@ export default class Checkout extends React.Component{
         )
     }
 }
+
+const mapStateToProps = function(state){
+    return {
+        cart: state.cart
+    }
+}
+export default connect(mapStateToProps)(checkout)

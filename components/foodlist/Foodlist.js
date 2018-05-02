@@ -1,12 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Right } from 'native-base'
 import { Image, StyleSheet } from 'react-native'
 import Foodcard from '../foodcard/Foodcard'
 import NavHeader from '../navheader/NavHeader'
-export default class Foodlist extends React.Component{
-    state = {
-        list: ['Nachos', 'Burrito']
-    }
+import PropTypes from 'prop-types'
+import { addItemToCart } from '../../actions/index'
+const foodlist = class Foodlist extends React.Component{
+    
 
     static navigationOptions = {
         title: '',
@@ -16,18 +17,39 @@ export default class Foodlist extends React.Component{
         super(props);
 
     }
+
     render(){
         return(
             <Container style={{ backgroundColor: '#ff9d1c'}}>
-                            <NavHeader title="Local Goodies" />
-
+                <NavHeader title="Local Goodies" />
                 <Content>
-
-                    {this.state.list.map((val, idx) => {
-                        return <Foodcard key={idx} url={val} />
+                    {this.props.data.map((val, idx) => {
+                        return <Foodcard key={idx} item={val} onAddCart={() => this.props.addCartAction(val) }/>
                     })}
                 </Content>
             </Container>
         )
     }
 }
+
+foodlist.propTypes = {
+    addCartAction: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired
+}
+
+const mapDispatchToProps = function(dispatch){
+    return ({
+            addCartAction: (item) => {
+                    console.log("inside of cart action")
+                    dispatch(addItemToCart(item))
+                }
+        })
+}
+
+const mapStateToProps = function(state){
+    return ({
+        data: state.foodlist 
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(foodlist)
