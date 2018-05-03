@@ -34,7 +34,7 @@ const foodcardComp = class Foodcard extends React.Component{
                     </Left>
                     <Body>
                         <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, this.props.item.username)}>
-                            <Text>@SellerUsername</Text>
+                            <Text>{this.props.item.username}</Text>
                         </Button>
                     </Body>
                 </CardItem>
@@ -45,7 +45,7 @@ const foodcardComp = class Foodcard extends React.Component{
                     <Left>
                         <Button transparent>
                             <Icon ios="ios-thumbs-up" android="thumbs-up" active />
-                            <Text>112 likes</Text>
+                            <Text>{this.props.item.num_of_likes} likes</Text>
                         </Button>
                     </Left>
                     <Right>

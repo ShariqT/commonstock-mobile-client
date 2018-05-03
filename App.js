@@ -104,16 +104,8 @@ const RootStack = StackNavigator({
 
 const state = {
   cart: [],
-  foodlist: [
-    {
-        'username': '@SellerUsername',
-        'key':1,
-        'url':'Nachos',
-        'num_of_likes':112,
-        'price':4.25,
-        'name': 'Nachos'
-    }
-  ]
+  foodlist: [],
+  access: false
 }
 const store = createStore(RootReducer, state, applyMiddleware(thunk))
 console.log("the original state is --")
