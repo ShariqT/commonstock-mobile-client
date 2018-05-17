@@ -19,7 +19,11 @@ export function cartReducer(state = initalCart, action){
             let newCt = state
             console.log('removing from state')
             console.log(action.key)
-            return newCt.slice(0,action.key).concat(newCt.slice(action.key+1))
+            if (newCt.length > 1){
+                return newCt.slice(0,action.key).concat(newCt.slice(action.key+1))
+            }else{
+                return []
+            }
         default:
             return state
     }

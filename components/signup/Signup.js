@@ -3,7 +3,7 @@ import { Container, Grid, Row, Col, Content, Button, Item, Input, Text } from 'n
 import { formItemStyle, primaryColor, mainButtonStyle } from '../../styles/Styles'
 import NavHeader from '../navheader/NavHeader'
 import { connect } from 'react-redux'
-import { getAuthAccess } from '../../actions/index'
+import { signUpUser } from '../../actions/index'
 
 const signup = class Signup extends React.Component {
 
@@ -18,14 +18,11 @@ const signup = class Signup extends React.Component {
     processSignup(){
         console.log(this.props.auth)
         this.props.onAccess({username: this.state.username, password: this.state.password})
-        this.forceUpdate()
-        if(this.props.auth){
-             this.props.navigation.navigate('Foodlist')
-        }
-    }
-    componentDidMount(){
+        
         
     }
+    
+    
     render(){
         return(
             <Container style={{backgroundColor: primaryColor}}>
@@ -53,7 +50,7 @@ const signup = class Signup extends React.Component {
 const mapPropsToDispatch = function(dispatch){
     return {
         onAccess: (usr) => {
-            dispatch(getAuthAccess(usr))
+            dispatch(signUpUser(usr))
         }
     }
 }

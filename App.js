@@ -10,13 +10,22 @@ import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import Checkout from './components/checkout/Checkout'
 import SellerProfile from './components/sellerprofile/SellerProfile'
 import { Provider } from 'react-redux'
-import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation'
+import { TabNavigator, TabBarBottom, StackNavigator, addNavigationHelpers } from 'react-navigation'
 import { secondaryColor, primaryTextColor, teritaryColor } from './styles/Styles'
 import getTheme from './native-base-theme/components'
 import platformTheme from './native-base-theme/variables/platform'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import RootReducer from './reducers/Root'
 import thunk from 'redux-thunk'
+import { connect } from 'react-redux'
+import ApiMiddleware from './middleware'
+import {cartReducer} from './reducers/Cart'
+import accessReducer from './reducers/Access'
+import {listReducer} from './reducers/List'
+import { USER_ACCESS } from './actions/index'
+import { NavigationActions } from 'react-navigation';
+
+import { createReactNavigationReduxMiddleware, createReduxBoundAddListener} from 'react-navigation-redux-helpers'
 const UserAccountNav = StackNavigator({
   UserProfile:{
     screen: UserProfile
@@ -107,14 +116,58 @@ const state = {
   foodlist: [],
   access: false
 }
-const store = createStore(RootReducer, state, applyMiddleware(thunk))
+const initialRoute = RootStack.router.getStateForAction(RootStack.router.getStateForAction('Entry'))
+
+const navReducer = (state = initialRoute, action) => {
+  let nextState;
+  console.log("inside of nav reducer")
+  switch(action.type){
+    case USER_ACCESS:
+      console.log("inside of user access")
+
+      nextState = RootStack.router.getStateForAction( NavigationActions.navigate({routeName: 'Foodlist'}), state)
+      console.log(nextState)
+      break;
+    default:
+      nextState = RootStack.router.getStateForAction(action, state)
+    break;
+
+  }
+  return nextState || state;
+}
+const appReducer = combineReducers({
+  nav: navReducer,
+  cart: cartReducer,
+  foodlist: listReducer,
+  access: accessReducer
+})
+
+const navMiddleware = createReactNavigationReduxMiddleware("root", state => state.nav)
+const addListener = createReduxBoundAddListener("root")
+const store = createStore(appReducer, applyMiddleware(ApiMiddleware, navMiddleware))
 console.log("the original state is --")
 console.log(store)
+
+const RootNav = class RootNav extends React.Component{
+  render(){
+    return(<RootStack navigation={addNavigationHelpers({
+      dispatch: this.props.dispatch,
+      state: this.props.nav,
+      addListener
+    })} />)
+  }
+}
+const mapStateToProps = (state) => {
+    return({
+      nav: state.nav
+    })
+}
+const RootNavWithState = connect(mapStateToProps)(RootNav)
 export default class App extends React.Component{
   render(){
     return (
       <Provider store={store}>
-        <RootStack />
+        <RootNavWithState />
       </Provider>
     )
   }

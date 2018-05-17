@@ -9,45 +9,45 @@ export const SIGNUP_SCREEN = 'SIGNUP_SCREEN'
 export function addItemToCart(item){
     console.log('inside of the action...')
     console.log(item)
-    return (dispatch) => {
-        return dispatch({
+    
+        return {
             type: ADD_TO_CART,
             item
-        })
-    }
+        }
+    
 }
 
 export function removeCartItem(key){
-    return (dispatch) => {
-        return dispatch({
+    
+        return {
             type: REMOVE_CART,
             key
-        })
-    }
+        }
+    
 }
 
-export function navToScreen(screen){
-    return (dispatch) => {
-        const nav = NavigationActions.navigate({
-            routeName:'Foodlist'
-        })
-        console.log(nav)
-        return dispatch(nav)
-    }
+export function signUpUser(usr){
+    console.log("API signup")
+    console.log(usr)
+    
+        return {
+            type: 'API_SIGNUP',
+            user: usr
+        }
+    
 }
-export function getAuthAccess(usr){
-    return (dispatch) => {
-        navToScreen('Signup')
-        return dispatch({
+export function grantUserAccess(){
+    
+        
+        return {
             type: USER_ACCESS,
             access: true
-        })
-    }
+        }
 }
 
 
 export function getFoodlist(){
-    return(dispatch) => {
+    
         let dat = [
             {
                 'username': '@SellerUsername',
@@ -58,9 +58,9 @@ export function getFoodlist(){
                 'name': 'Nachos'
             }
         ]
-        return dispatch({
+        return {
             type: LOAD_FOODLIST,
             list: dat
-        })
-    }
+        }
+    
 }
