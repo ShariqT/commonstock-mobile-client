@@ -7,29 +7,20 @@ export const USER_ACCESS = 'USER_ACCESS'
 export const SIGNUP_SCREEN = 'SIGNUP_SCREEN'
 
 export function addItemToCart(item){
-    console.log('inside of the action...')
-    console.log(item)
-    
         return {
             type: ADD_TO_CART,
             item
         }
-    
 }
 
 export function removeCartItem(key){
-    
         return {
             type: REMOVE_CART,
             key
         }
-    
 }
 
 export function signUpUser(usr){
-    console.log("API signup")
-    console.log(usr)
-    
         return {
             type: 'API_SIGNUP',
             user: usr
@@ -37,14 +28,29 @@ export function signUpUser(usr){
     
 }
 export function grantUserAccess(){
-    
-        
         return {
             type: USER_ACCESS,
             access: true
         }
 }
 
+export function loginUser(usr){
+    console.log("login user")
+    console.log(usr)
+    return {
+        type: 'API_LOGIN',
+        user: usr
+    }
+}
+
+export function loadUser(user){
+    return{
+        type: 'LOAD_USER',
+        access: true,
+        user,
+
+    }
+}
 
 export function getFoodlist(){
     
@@ -63,4 +69,12 @@ export function getFoodlist(){
             list: dat
         }
     
+}
+
+
+export function loadError(errorMsg){
+    return {
+        type: "ERROR",
+        message: errorMsg
+    }
 }

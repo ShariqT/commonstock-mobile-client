@@ -22,7 +22,8 @@ import ApiMiddleware from './middleware'
 import {cartReducer} from './reducers/Cart'
 import accessReducer from './reducers/Access'
 import {listReducer} from './reducers/List'
-import { USER_ACCESS } from './actions/index'
+import userReducer from './reducers/User'
+import { USER_ACCESS} from './actions'
 import { NavigationActions } from 'react-navigation';
 
 import { createReactNavigationReduxMiddleware, createReduxBoundAddListener} from 'react-navigation-redux-helpers'
@@ -122,7 +123,7 @@ const navReducer = (state = initialRoute, action) => {
   let nextState;
   console.log("inside of nav reducer")
   switch(action.type){
-    case USER_ACCESS:
+    case "LOAD_USER":
       console.log("inside of user access")
 
       nextState = RootStack.router.getStateForAction( NavigationActions.navigate({routeName: 'Foodlist'}), state)
@@ -139,7 +140,8 @@ const appReducer = combineReducers({
   nav: navReducer,
   cart: cartReducer,
   foodlist: listReducer,
-  access: accessReducer
+  access: accessReducer,
+  user: userReducer
 })
 
 const navMiddleware = createReactNavigationReduxMiddleware("root", state => state.nav)
