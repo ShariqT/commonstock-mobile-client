@@ -4,6 +4,7 @@ import { Container, Content, Button, Card, Icon, CardItem, Body, Text, Left, Rig
 import { Image, StyleSheet } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
+import { BASE_URL } from '../../App'
 
 const foodcardComp = class Foodcard extends React.Component{
     constructor(props){
@@ -21,8 +22,8 @@ const foodcardComp = class Foodcard extends React.Component{
             break;
         }
     }
-    goToSellerProfile(name){
-        this.props.navigation.navigate('SellerProfile', {seller: name})
+    goToSellerProfile(store_id){
+        this.props.navigation.navigate('SellerProfile', {store_id: store_id})
     }
 
     render(){
@@ -30,22 +31,22 @@ const foodcardComp = class Foodcard extends React.Component{
             <Card>
                 <CardItem>
                     <Left>
-                        <Text>{this.props.item.url}</Text>
+                        <Text>{this.props.item.name}</Text>
                     </Left>
                     <Body>
-                        <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, this.props.item.username)}>
-                            <Text>{this.props.item.username}</Text>
+                        <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, this.props.item.store)}>
+                            <Text>{this.props.item.store_info.name}</Text>
                         </Button>
                     </Body>
                 </CardItem>
                 <CardItem cardBody>
-                    <Image source={this.data} style={{ height:200, width: null, flex:1}} />
+                    <Image source={{uri: BASE_URL + this.props.item.photo}} style={{ height:200, width: null, flex:1}} />
                 </CardItem>
                 <CardItem>
                     <Left>
                         <Button transparent>
                             <Icon ios="ios-thumbs-up" android="thumbs-up" active />
-                            <Text>{this.props.item.num_of_likes} likes</Text>
+                            <Text>{this.props.item.favorited} likes</Text>
                         </Button>
                     </Left>
                     <Right>

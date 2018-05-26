@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Icon, Footer, FooterTab, Button, Text, StyleProvider  } from 'native-base'
+import { Icon, Footer, FooterTab, Button, Text, StyleProvider, Root  } from 'native-base'
 import Home from './components/home/Home'
 import Login from './components/login/Login'
 import Signup from './components/signup/Signup'
@@ -23,6 +23,7 @@ import {cartReducer} from './reducers/Cart'
 import accessReducer from './reducers/Access'
 import {listReducer} from './reducers/List'
 import userReducer from './reducers/User'
+import errorReducer from './reducers/Errors'
 import { USER_ACCESS} from './actions'
 import { NavigationActions } from 'react-navigation';
 
@@ -141,7 +142,8 @@ const appReducer = combineReducers({
   cart: cartReducer,
   foodlist: listReducer,
   access: accessReducer,
-  user: userReducer
+  user: userReducer,
+  error: errorReducer
 })
 
 const navMiddleware = createReactNavigationReduxMiddleware("root", state => state.nav)
@@ -165,11 +167,14 @@ const mapStateToProps = (state) => {
     })
 }
 const RootNavWithState = connect(mapStateToProps)(RootNav)
+export const BASE_URL  = 'https://commonstockfood2.herokuapp.com'
 export default class App extends React.Component{
   render(){
     return (
       <Provider store={store}>
+        <Root>
         <RootNavWithState />
+        </Root>
       </Provider>
     )
   }

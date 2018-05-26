@@ -44,6 +44,8 @@ export function loginUser(usr){
 }
 
 export function loadUser(user){
+    console.log("load user action")
+    console.log(user)
     return{
         type: 'LOAD_USER',
         access: true,
@@ -52,29 +54,34 @@ export function loadUser(user){
     }
 }
 
-export function getFoodlist(){
-    
-        let dat = [
-            {
-                'username': '@SellerUsername',
-                'key':1,
-                'url':'Nachos',
-                'num_of_likes':112,
-                'price':4.25,
-                'name': 'Nachos'
-            }
-        ]
+export function getFoodlist(lat, long, radius, token){
         return {
-            type: LOAD_FOODLIST,
-            list: dat
+            type: 'API_FOODLIST',
+            lat,
+            long,
+            radius,
+            token
         }
+        
+        
     
 }
 
-
+export function loadFoodlist(list){
+    return {
+        type: "LOAD_FOODLIST",
+        list
+    }
+}
 export function loadError(errorMsg){
     return {
         type: "ERROR",
         message: errorMsg
+    }
+}
+
+export function resetError(){
+    return {
+        type: "ERROR_RESET"
     }
 }

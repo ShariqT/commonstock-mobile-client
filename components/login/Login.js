@@ -1,26 +1,37 @@
 import React from 'react'
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Container, Content, Form, Item, Input, Button} from 'native-base'
+import { Container, Content, Form, Toast, Item, Input, Button} from 'native-base'
 import { Col, Row, Grid} from 'react-native-easy-grid'
 import { primaryColor, paddedContainer, inputField, secondaryColor } from '../../styles/Styles';
 import NavHeader from '../navheader/NavHeader';
 import { connect } from 'react-redux'
-import { loginUser } from '../../actions'
+import { loginUser, resetError } from '../../actions'
+import Loading from '../loading/Loading'
 
 const loginComponent = class Login extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            username: '',
-            password: ''
+            email: '',
+            password: ''        
         }
         this.handlePass = this.handlePassChange.bind(this);
         this.handleUser = this.handleUserChange.bind(this);
+
     }
 
     static navigationOptions = {
         title: 'Login',
         header: null
+    }
+
+    componentDidUpdate(){
+        console.log("compontentdid login moutn")
+        console.log(this.props.error);
+        if(this.props.error.message){
+            Toast.show({text:this.props.error.message, duration:1400 })
+            
+        }
     }
 
     handlePassChange(text){
@@ -32,20 +43,22 @@ const loginComponent = class Login extends React.Component{
 
     handleUserChange(text){
         this.setState({
-            username: text
+            email: text
         })        
     }
     submitLogin(){
         this.props.onSubmit(this.state);
+        //Toast.show({text: "Logging in...", duration:300})
     }
 
     render(){
+
         return(
             <Container style={{backgroundColor: primaryColor}}>
                 <NavHeader title="Login" backPage='Home' hideCart />
                 <Content>
                     <Item underline style={inputField}>
-                        <Input placeholder="Username" value={this.state.username} onChangeText={this.handleUser}/>
+                        <Input placeholder="Email" keyboardType="email-address" value={this.state.email} onChangeText={this.handleUser}/>
                     </Item>
                     <Item underline style={inputField}>
                         <Input placeholder="Password" secureTextEntry={true} value={this.state.password} onChangeText={this.handlePass}/>
@@ -61,7 +74,8 @@ const loginComponent = class Login extends React.Component{
 
 const mapStateToProps = (state) =>{
     return({
-        access: state.access
+        access: state.access,
+        error: state.error
     })
 }
 
@@ -69,6 +83,10 @@ const mapDispatchToProps = (dispatch) => {
     return({
         onSubmit: (usr) => {
             dispatch(loginUser(usr))
+        },
+
+        resetError: () =>{
+            dispatch(resetError())
         }
     })
 }

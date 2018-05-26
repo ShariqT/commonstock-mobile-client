@@ -3,7 +3,9 @@ import NavHeader from '../navheader/NavHeader'
 import { Container, Content, Text, H3, Thumbnail } from 'native-base'
 import {Grid, Row, Col} from 'react-native-easy-grid'
 import { primaryTextColor, centerStyle } from '../../styles/Styles'
-export default class SellerProfile extends React.Component{
+import { connect } from 'react-redux'
+
+const sellerProfile = class SellerProfile extends React.Component{
     static navigationOptions = {
         header: null
     }
@@ -11,13 +13,20 @@ export default class SellerProfile extends React.Component{
     constructor(props){
         super(props)
 
-        this.title = this.props.navigation.getParam('seller', "No Seller")
+        this.store_id = this.props.navigation.getParam('store_id', 0)
+        console.log("sellerProfile")
+
         this.sellerInfo = {
             name: "@SellerUsername",
             num_of_likes: 122,
             join_date: "3/4/19",
             pic: require("../../assets/logo.png")
         }
+    }
+
+    componentDidMount(){
+        console.log("mounting sellerprofile")
+        console.log(this.store_id)
     }
     render(){
         return(
@@ -64,3 +73,5 @@ export default class SellerProfile extends React.Component{
         )
     }
 }
+
+export default connect()(sellerProfile)

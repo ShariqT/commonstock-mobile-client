@@ -5,19 +5,12 @@ import {withNavigation } from 'react-navigation'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { removeCartItem } from '../../actions'
+import { BASE_URL } from '../../App'
 
 const checkoutItemComp = class CheckoutItem extends React.Component{
     constructor(props){
         super(props)
         console.log(props)
-        switch(props.item.url){
-            case "Nachos": 
-                this.pic = require("../../assets/Nachos.jpg")
-            break;
-            case "Burrito":
-                this.pic = require("../../assets/California-Burrito.jpg")
-            break;
-        }
         this.item = props.item
     }
 
@@ -33,7 +26,7 @@ const checkoutItemComp = class CheckoutItem extends React.Component{
             body={<ListItem style={{backgroundColor: primaryTextColor }} avatar>
                 
                  
-                    <Thumbnail square small source={this.pic} />
+                    <Thumbnail square small source={{uri: BASE_URL + this.photo}} />
                 
                     <Text>{this.item.name}</Text>
                     <Button transparent onPress={this.goToSellerPage.bind(this)}>

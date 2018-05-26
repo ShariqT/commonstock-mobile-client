@@ -18,8 +18,23 @@ const foodlist = class Foodlist extends React.Component{
 
     }
 
+    getPhoneLocation(){
+        return { "lat": 1233, "lon": -12233}
+    }
     componentDidMount(){
-        this.props.load()
+        let loc = this.getPhoneLocation();
+        console.log("food list did mounth")
+        const self = this;
+        this.props.auth.then((val)=>{
+            console.log(val)
+            self.props.load(
+                loc.lat,
+                loc.lon,
+                2,
+                val.token
+            )
+        })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        
     }
 
     render(){
@@ -50,15 +65,16 @@ const mapDispatchToProps = function(dispatch){
                 },
             
 
-            load: ()=> {
-                dispatch(getFoodlist())
+            load: (lat, lon, radius, token)=> {
+                dispatch(getFoodlist(lat, lon, radius, token))
             }
         })
 }
 
 const mapStateToProps = function(state){
     return ({
-        data: state.foodlist 
+        data: state.foodlist,
+        auth: state.user
     })
 }
 
