@@ -5,7 +5,8 @@ import { FlatList} from 'react-native'
 import { primaryColor, secondaryColor, primaryTextColor } from '../../styles/Styles'
 import CheckoutItem from '../checkout-item-list/CheckoutItem'
 import { connect } from 'react-redux'
-import { removeCartItem } from '../../actions'
+import { removeCartItem, buyFood } from '../../actions'
+import { withNavigation } from 'react-navigation'
 
 const checkout = class Checkout extends React.Component{
     static navigationOptions = {
@@ -16,6 +17,9 @@ const checkout = class Checkout extends React.Component{
         
     }
 
+    onBuy(){
+        this.props.navigation.navigate("Confirm")
+    }
 
     _renderItems = ({item}) => {
         console.log("insdie of the flatlist")
@@ -51,7 +55,7 @@ const checkout = class Checkout extends React.Component{
                     </Row>
                     <Row size={30}>
                     <Col>
-                    <Button full style={{backgroundColor: secondaryColor }}>
+                    <Button full style={{backgroundColor: secondaryColor }} onPress={this.onBuy.bind(this)}>
                         <Text>Buy</Text>
                     </Button>
                     </Col>
@@ -73,6 +77,7 @@ const mapPropsToDispatch = function(dispatch){
         onDeleteItem: (key) =>{
             return dispatch(removeCartItem(key))
         }
+
     })
 }
-export default connect(mapStateToProps, mapPropsToDispatch)(checkout)
+export default connect(mapStateToProps, mapPropsToDispatch)(withNavigation(checkout))

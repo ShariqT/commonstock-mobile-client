@@ -25,15 +25,13 @@ const foodlist = class Foodlist extends React.Component{
         let loc = this.getPhoneLocation();
         console.log("food list did mounth")
         const self = this;
-        this.props.auth.then((val)=>{
-            console.log(val)
-            self.props.load(
-                loc.lat,
-                loc.lon,
-                2,
-                val.token
-            )
-        })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+        self.props.load(
+            loc.lat,
+            loc.lon,
+            2,
+            this.props.auth.token
+        );
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
         
     }
 

@@ -25,6 +25,13 @@ const loginComponent = class Login extends React.Component{
         header: null
     }
 
+    componentDidMount(){
+        if(this.props.auth.token){
+            //we already have a valid token, so let's go the 
+            //food list page
+            this.props.navigation.navigate('Foodlist')
+        }
+    }
     componentDidUpdate(){
         console.log("compontentdid login moutn")
         console.log(this.props.error);
@@ -75,7 +82,8 @@ const loginComponent = class Login extends React.Component{
 const mapStateToProps = (state) =>{
     return({
         access: state.access,
-        error: state.error
+        error: state.error,
+        auth: state.user
     })
 }
 

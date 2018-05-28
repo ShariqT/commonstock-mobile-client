@@ -11,6 +11,8 @@ const navheader  = class NavHeader extends React.Component{
         super(props);
         this.backPage = props.backPage;
         this.title = props.title;
+        console.log("inside of nav header")
+        console.log(this.title)
     }
 
     goBack(){
@@ -34,7 +36,7 @@ const navheader  = class NavHeader extends React.Component{
             cartElem = <Right></Right>
         }
         return(
-            <Header style={{backgroundColor: teritaryColor}}>
+            <Header style={{backgroundColor: teritaryColor, paddingTop:50, paddingBottom:40}}>
                     {headerChildren}
                 <Body>
                     <Title style={{color:primaryTextColor}}>{this.title}</Title>

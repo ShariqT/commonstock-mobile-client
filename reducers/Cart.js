@@ -15,6 +15,9 @@ export function cartReducer(state = initalCart, action){
            console.log(action.item)
            return newCart
            break;
+        case "LOAD_BUY_SUCCESS":
+           return []
+        break;
         case REMOVE_CART:
             let newCt = state
             console.log('removing from state')

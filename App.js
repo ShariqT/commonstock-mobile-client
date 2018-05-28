@@ -8,6 +8,9 @@ import Foodlist from './components/foodlist/Foodlist'
 import UserProfile from './components/userprofile/UserProfile'
 import CreditCardInfo from './components/creditcardinfo/CreditCardInfo'
 import Checkout from './components/checkout/Checkout'
+import OrderInfo from './components/orderinfo/OrderInfo'
+import Confirm from './components/confirm/Confirm'
+import { Font } from 'expo'
 import SellerProfile from './components/sellerprofile/SellerProfile'
 import { Provider } from 'react-redux'
 import { TabNavigator, TabBarBottom, StackNavigator, addNavigationHelpers } from 'react-navigation'
@@ -92,6 +95,12 @@ const EntryNav = StackNavigator({
   },
   Foodlist: {
     screen: MainApp
+  },
+  OrderInfo: {
+    screen: OrderInfo
+  },
+  Confirm: {
+    screen: Confirm
   }
 
 },{
@@ -130,6 +139,11 @@ const navReducer = (state = initialRoute, action) => {
       nextState = RootStack.router.getStateForAction( NavigationActions.navigate({routeName: 'Foodlist'}), state)
       console.log(nextState)
       break;
+    
+    case "LOAD_BUY_SUCCESS":
+      console.log("inside of success buy")
+      nextState = RootStack.router.getStateForAction( NavigationActions.navigate({routeName: 'OrderInfo', params:action.order}), state)
+    break;
     default:
       nextState = RootStack.router.getStateForAction(action, state)
     break;
@@ -169,7 +183,25 @@ const mapStateToProps = (state) => {
 const RootNavWithState = connect(mapStateToProps)(RootNav)
 export const BASE_URL  = 'https://commonstockfood2.herokuapp.com'
 export default class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      appLoading: true
+    }
+  }
+  async componentWillMount(){
+    await Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+    });
+    this.setState({
+      appLoading: false
+    })
+  }
   render(){
+    if(this.state.appLoading){
+      return(<Text>Loading</Text>)
+    }
     return (
       <Provider store={store}>
         <Root>

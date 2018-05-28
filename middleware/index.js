@@ -1,11 +1,42 @@
-import { grantUserAccess, navToScreen, loadUser, loadError, loadFoodlist } from '../actions'
+import { grantUserAccess, loadOrderSuccess, navToScreen, loadUser, loadError, loadFoodlist } from '../actions'
 import fetch from 'cross-fetch'
-const apiUrl = "https://commonstockfood2.herokuapp.com/api/v1/";
+export const apiUrl = "https://commonstockfood2.herokuapp.com/api/v1/";
 export default ApiMiddleware = store => next => action =>{
     switch(action.type){
         case "API_SIGNUP":
             console.log("aobut to grant acess based on what is returned from the thunk...")
             return next(grantUserAccess())
+        break;
+        case "API_BUY_FOOD":
+            console.log("putting in order")
+            console.log(action.order)
+            console.log(action)
+            fetch(apiUrl + "buy", {
+                method: "POST",
+                headers: {"Content-Type":'application/json', "Authorization": "Bearer " + action.token },
+                body: JSON.stringify(action.order)
+            }).then((response) => {
+                console.log(response);
+                switch(response.status){
+                    case 200:
+                        response.json().then((val) => {
+                            return next(loadOrderSuccess({
+                                order: val
+                            }))
+                        });
+                        
+                    break;
+                    default:
+                        response.text().then((v) => {
+                            console.log(v);
+                            return next(loadError("Could not complete order at this time!"))
+
+                        })
+                    break;
+                }
+            }, (error) => {
+                return next(loadError(error.message))
+            });
         break;
         case "API_FOODLIST":
             console.log("fetching the foodlist")
@@ -26,6 +57,9 @@ export default ApiMiddleware = store => next => action =>{
                 }else{
                     console.log(apiUrl + urlStr);
                     console.log("error in getting foodlist")
+                    response.text().then((t) => {
+                        console.log(t)
+                    })
                     return next(loadError("Sorry! Something has gone wrong! Please try again later"))
                 }
             }, (error) => {
@@ -42,7 +76,12 @@ export default ApiMiddleware = store => next => action =>{
             }).then((response) => {
                 switch(response.status){
                     case 200:
-                        return next(loadUser(response.json()))
+                        response.json().then((res)=>{
+                            console.log("api longing in user")
+                            console.log(res)
+                            return next(loadUser(res))
+                        })
+                        
                     break;
                     case 401:
                         return next(loadError("wrong login"))

@@ -85,3 +85,18 @@ export function resetError(){
         type: "ERROR_RESET"
     }
 }
+
+export function buyFood(order, token){
+    return {
+        type: "API_BUY_FOOD",
+        order,
+        token
+    }
+}
+
+export function loadOrderSuccess(order_info){
+    return {
+        type: "LOAD_BUY_SUCCESS",
+        order: order_info
+    }
+}

@@ -10,17 +10,7 @@ const foodcardComp = class Foodcard extends React.Component{
     constructor(props){
         super(props);
         console.log("insdie of foodcard")
-        switch(props.item.url){
-            case 'Nachos':
-                this.data = require('../../assets/Nachos.jpg')
-            break;
-            case 'Burrito':
-                this.data = require('../../assets/California-Burrito.jpg')
-            break;
-            default:
-                this.data = require('../../assets/logo.png')
-            break;
-        }
+        
     }
     goToSellerProfile(store_id){
         this.props.navigation.navigate('SellerProfile', {store_id: store_id})
@@ -35,7 +25,7 @@ const foodcardComp = class Foodcard extends React.Component{
                     </Left>
                     <Body>
                         <Button transparent style={{width:300}} onPress={this.goToSellerProfile.bind(this, this.props.item.store)}>
-                            <Text>{this.props.item.store_info.name}</Text>
+                            <Text>{this.props.item.store.name}</Text>
                         </Button>
                     </Body>
                 </CardItem>

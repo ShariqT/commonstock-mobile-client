@@ -1,7 +1,7 @@
 import color from "color";
 
 import { Platform, Dimensions, PixelRatio } from "react-native";
-import { teritaryColor, primaryTextColor } from "../../styles/Styles";
+import { teritaryColor, primaryTextColor, secondaryColor } from "../../styles/Styles";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -119,7 +119,7 @@ export default {
 
   // Footer
   footerHeight: isIphoneX ? 89 : 55,
-  footerDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
+  footerDefaultBg: secondaryColor,
   footerPaddingBottom: isIphoneX ? 34 : 0,
 
   // FooterTab
